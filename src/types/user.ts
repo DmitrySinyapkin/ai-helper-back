@@ -4,3 +4,13 @@ export interface User {
     password: string
     created_at: string
 }
+
+export interface Token {
+    access: string
+    refresh: string
+}
+
+export interface JwtPayload {
+    id: number
+    email: string
+}
