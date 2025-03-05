@@ -28,7 +28,7 @@ class AuthController {
         const token = await authService.login(email, password)
 
         if (token?.access && token?.refresh) {
-            return res.json({ access: token.access, refresh: token.refresh })
+            return res.json(token)
         } else {
             return res.status(401).json({ message: 'Invalid credentials' })
         }

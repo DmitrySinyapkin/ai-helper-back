@@ -3,7 +3,7 @@ import supabase from '../config/supabase/client'
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../utils/jwt'
 import { User, Token, JwtPayload } from '../types/user'
 
-class AuthController {
+class AuthService {
     async register(email: string, password: string) {
         const hashedPassword = await bcrypt.hash(password, 10)
         const user = await supabase.from('users').insert({ email, password: hashedPassword }).select()
@@ -47,4 +47,4 @@ class AuthController {
     }
 }
 
-export default new AuthController()
+export default new AuthService()
