@@ -1,20 +1,26 @@
-import { ChatCompletion } from "openai/resources"
-import openai from "../config/openai/client"
 import { MODELS } from "../constants/openrouter"
+import { getChatCompletion } from "../utils/openai"
+import { getMinifiedHtmlFromUrl } from "../utils/getHTML"
 
 class ChatService {
-    async createCompletion(prompt: string, model: string = MODELS[0], html: string): Promise<ChatCompletion> {
-        const  completion = await openai.chat.completions.create({
-            model,
-            messages: [
-                {
-                    role: "user",
-                    content: html ? `${prompt}: ${html}` : prompt
-                }
-            ]
-        })
+    async createCompletion(prompt: string, model: string = MODELS[0], url?: string): Promise<any> {
+        let html: string | undefined = undefined
 
-        return completion
+        if (url) {
+            const content = await getMinifiedHtmlFromUrl(url)
+
+            if (content) {
+                html = content
+            }
+        }
+
+        const  completion = await getChatCompletion(prompt, model, html)
+
+        if (completion) {
+            return completion
+        }
+
+        return null
     }
 }
 
