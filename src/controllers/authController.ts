@@ -30,7 +30,7 @@ class AuthController {
         if (token?.access && token?.refresh) {
             return res.json(token)
         } else {
-            return res.status(401).json({ message: 'Invalid credentials' })
+            return res.status(403).json({ message: 'Invalid credentials' })
         }
     }
 

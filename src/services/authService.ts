@@ -6,7 +6,7 @@ import { User, Token, JwtPayload } from '../types/user'
 class AuthService {
     async register(email: string, password: string) {
         const hashedPassword = await bcrypt.hash(password, 10)
-        const user = await supabase.from('users').insert({ email, password: hashedPassword }).select()
+        const user = await supabase.from('users').insert({ email, password: hashedPassword }).select().single()
         return user
     }
 
