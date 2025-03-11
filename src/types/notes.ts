@@ -4,4 +4,5 @@ export interface Note {
     user_id: number
     url: string
     content: string
+    title: string
 }
