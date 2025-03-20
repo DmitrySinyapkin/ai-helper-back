@@ -16,7 +16,7 @@ class NotesService {
         }
     }
 
-    async createNote(note: Pick<Note, 'user_id' | 'url' | 'content'>) {
+    async createNote(note: Pick<Note, 'user_id' | 'url' | 'content' | 'title'>) {
         try {
             const { data, error } = await supabase.from('notes').insert(note).select().single()
 
@@ -44,7 +44,7 @@ class NotesService {
         }
     }
 
-    async updateNote(note: Pick<Note, 'id' | 'url' | 'content'>) {
+    async updateNote(note: Pick<Note, 'id' | 'url' | 'content' | 'title'>) {
         try {
             const { data, error } = await supabase.from('notes').update(note).eq('id', note.id).select().single()
 

@@ -15,7 +15,7 @@ class NotesController {
     }
 
     async createNote(req: Request, res: Response): Promise<any> {
-        const { user, url, content } = req.body
+        const { user, url, content, title } = req.body
 
         if (!content) {
             return res.status(400).json({ message: 'Content field required' })
@@ -24,6 +24,7 @@ class NotesController {
         const newNote = {
             user_id: user.id,
             url: url || 'none',
+            title: title || null,
             content: content,
         }
 
@@ -54,7 +55,7 @@ class NotesController {
 
     async updateNote(req: Request, res: Response): Promise<any> {
         const { id } = req.params
-        const { user, content, url, user_id } = req.body
+        const { user, content, url, user_id, title } = req.body
 
         if (user_id !== user.id) {
             return res.status(403).json({ message: 'Invalid credentials' })
@@ -63,7 +64,8 @@ class NotesController {
         const note = {
             id: Number(id),
             content,
-            url
+            url,
+            title
         }
 
         const updated = await notesService.updateNote(note)
