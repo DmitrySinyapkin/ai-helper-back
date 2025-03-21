@@ -10,7 +10,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     try {
         const decoded = verifyAccessToken(token)
 
-        if (!decoded) return res.status(401).send({ message: 'Invalid access token' })
+        if (!decoded) return res.status(403).send({ message: 'Invalid access token' })
 
         req.body.user = decoded
         next()
