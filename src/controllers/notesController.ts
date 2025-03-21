@@ -23,7 +23,7 @@ class NotesController {
 
         const newNote = {
             user_id: user.id,
-            url: url || 'none',
+            url: url || null,
             title: title || null,
             content: content,
         }
