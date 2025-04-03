@@ -1,5 +1,5 @@
 import jwt, { SignOptions } from 'jsonwebtoken'
-import { User } from '../types/user'
+import { User } from '../types/user.js'
 
 const JWT_SECRET = process.env.JWT_SECRET!
 const REFRESH_SECRET = process.env.REFRESH_SECRET!

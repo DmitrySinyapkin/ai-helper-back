@@ -1,11 +1,11 @@
 import express from "express";
 import 'dotenv/config'
 import cors from 'cors'
-import { authMiddleware } from "./middleware/authMiddleware"
-import authRoutes from './routes/authRoutes'
-import chatRoutes from './routes/chatRoutes'
-import notesRoutes from './routes/notesRoutes'
-import usersRoutes from './routes/usersRoutes'
+import { authMiddleware } from "./middleware/authMiddleware.js"
+import authRoutes from './routes/authRoutes.js'
+import chatRoutes from './routes/chatRoutes.js'
+import notesRoutes from './routes/notesRoutes.js'
+import usersRoutes from './routes/usersRoutes.js'
 
 const app = express()
 

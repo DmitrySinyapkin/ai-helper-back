@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs'
-import supabase from '../config/supabase/client'
-import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../utils/jwt'
-import { User, Token, JwtPayload } from '../types/user'
+import supabase from '../config/supabase/client.js'
+import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../utils/jwt.js'
+import { User, Token, JwtPayload } from '../types/user.js'
 
 class AuthService {
     async register(email: string, password: string) {

@@ -1,6 +1,6 @@
 import { ChatCompletion } from "openai/resources"
-import openai from "../config/openai/client"
-import { MODELS, OPENROUTER_BASE_URL } from "../constants/openrouter"
+import openai from "../config/openai/client.js"
+import { MODELS, OPENROUTER_BASE_URL } from "../constants/openrouter.js"
 
 export const getChatCompletion = async (prompt: string, model: string = MODELS[0], html?: string): Promise<Partial<ChatCompletion> | null> => {
     try {

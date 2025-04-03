@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import notesService from '../services/notesService'
+import notesService from '../services/notesService.js'
 
 class NotesController {
     async getNoteList(req: Request, res: Response): Promise<any> {

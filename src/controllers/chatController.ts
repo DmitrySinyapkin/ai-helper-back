@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import chatService from '../services/chatService'
+import chatService from '../services/chatService.js'
 
 class ChatContriller {
     async createCompletion(req: Request, res: Response): Promise<any> {

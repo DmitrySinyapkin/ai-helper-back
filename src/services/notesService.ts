@@ -1,5 +1,5 @@
-import supabase from '../config/supabase/client'
-import { Note } from '../types/notes'
+import supabase from '../config/supabase/client.js'
+import { Note } from '../types/notes.js'
 
 class NotesService {
     async getNoteList(user_id: number) {

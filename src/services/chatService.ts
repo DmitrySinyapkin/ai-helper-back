@@ -1,6 +1,6 @@
-import { MODELS } from "../constants/openrouter"
-import { getChatCompletion } from "../utils/openai"
-import { getMinifiedHtmlFromUrl } from "../utils/getHTML"
+import { MODELS } from "../constants/openrouter.js"
+import { getChatCompletion } from "../utils/openai.js"
+import { getMinifiedHtmlFromUrl } from "../utils/getHTML.js"
 
 class ChatService {
     async createCompletion(prompt: string, model: string = MODELS[0], url?: string): Promise<any> {

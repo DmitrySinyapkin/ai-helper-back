@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import usersService from '../services/usersService'
+import usersService from '../services/usersService.js'
 
 class UsersController {
     async getUserList(req: Request, res: Response): Promise<any> {
