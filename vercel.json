@@ -4,7 +4,7 @@
         { "source": "/(.*)", "destination": "/api" }
     ],
     "functions": {
-        "api/*.js": {
+        "api/*.(js|ts)": {
             "maxDuration": 50
         }
     } 
