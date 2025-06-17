@@ -23,7 +23,6 @@ export const getChatCompletion = async (prompt: string, model: string = MODELS[0
 
         return completion;
     } catch (error: any) {
-        console.log(error);
         // Re-throw the error so it can be handled by the service layer
         throw handleOpenRouterError(error);
     }
