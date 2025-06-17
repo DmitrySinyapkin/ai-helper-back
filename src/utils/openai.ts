@@ -1,12 +1,13 @@
 import { ChatCompletion } from "openai/resources"
 import openai from "../config/openai/client.js"
 import { MODELS, OPENROUTER_BASE_URL } from "../constants/openrouter.js"
+import { handleOpenRouterError } from "./errorHandler.js"
 
-export const getChatCompletion = async (prompt: string, model: string = MODELS[0], html?: string): Promise<Partial<ChatCompletion> | null> => {
+export const getChatCompletion = async (prompt: string, model: string = MODELS[0], html?: string): Promise<Partial<ChatCompletion>> => {
     try {
         openai.baseURL = getBaseURL(model)
 
-        const  completion = await openai.chat.completions.create({
+        const completion = await openai.chat.completions.create({
             model,
             messages: [
                 {
@@ -16,13 +17,15 @@ export const getChatCompletion = async (prompt: string, model: string = MODELS[0
             ]
         })
     
-        if (completion) {
-            return completion
-        } else {
-            return null
+        if (!completion) {
+            throw new Error('No completion received from OpenRouter API');
         }
-    } catch (error) {
-        return null
+
+        return completion;
+    } catch (error: any) {
+        console.log(error);
+        // Re-throw the error so it can be handled by the service layer
+        throw handleOpenRouterError(error);
     }
 }
 

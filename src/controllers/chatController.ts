@@ -1,22 +1,19 @@
 import { Request, Response } from 'express'
 import chatService from '../services/chatService.js'
+import { asyncHandler } from '../utils/errorHandler.js'
+import { ValidationError } from '../types/errors.js'
 
-class ChatContriller {
-    async createCompletion(req: Request, res: Response): Promise<any> {
+class ChatController {
+    createCompletion = asyncHandler(async (req: Request, res: Response): Promise<void> => {
         const { prompt, model, url } = req.body
 
         if (!prompt) {
-            return res.status(400).json({ message: 'Prompt required' })
+            throw new ValidationError('Prompt is required', 'prompt');
         }
 
-        const completion = await chatService.createCompletion(prompt, model, url)
-
-        if (completion) {
-            return res.status(200).json(completion)
-        } else {
-            return res.status(400).json({ message: 'Error creating completion' })
-        }
-    }
+        const completion = await chatService.createCompletion(prompt, model, url);
+        res.status(200).json(completion);
+    });
 }
 
-export default new ChatContriller()
+export default new ChatController()
