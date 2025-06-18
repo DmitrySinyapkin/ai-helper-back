@@ -2,12 +2,33 @@ import bcrypt from 'bcryptjs'
 import supabase from '../config/supabase/client.js'
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../utils/jwt.js'
 import { User, Token, JwtPayload } from '../types/user.js'
+import { ValidationError } from '../types/errors.js'
 
 class AuthService {
     async register(email: string, password: string) {
+        // Проверяем существование email
+        const { data: existingUser } = await supabase
+            .from('users')
+            .select('id')
+            .eq('email', email)
+            .single();
+
+        if (existingUser) {
+            throw new ValidationError('Email already registered', 'email');
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10)
-        const user = await supabase.from('users').insert({ email, password: hashedPassword }).select('id, email, created_at').single()
-        return user
+        const { data: user, error } = await supabase
+            .from('users')
+            .insert({ email, password: hashedPassword })
+            .select('id, email, created_at')
+            .single();
+
+        if (error) {
+            throw new ValidationError('Failed to register user', 'database');
+        }
+
+        return user;
     }
 
     async login(email: string, password: string): Promise<Token | undefined>  {

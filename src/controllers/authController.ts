@@ -1,54 +1,62 @@
 import { Request, Response } from 'express'
 import authService from "../services/authService.js"
+import { asyncHandler } from '../utils/errorHandler.js'
+import { ValidationError } from '../types/errors.js'
 
 class AuthController {
-    async register(req: Request, res: Response): Promise<any> {
+    register = asyncHandler(async (req: Request, res: Response): Promise<void> => {
         const { email, password } = req.body
 
         if (!email || !password) {
-            return res.status(400).json({ message: 'Email and password are required' })
+            throw new ValidationError('Email and password are required');
         }
 
-        const { data, error } = await authService.register(email, password)
-
-        if (error) {
-            return res.status(500).json({ message: error.message })
+        // Валидация email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            throw new ValidationError('Invalid email format', 'email');
         }
 
-        return res.status(201).json(data)
-    }
+        // Валидация пароля
+        if (password.length < 6) {
+            throw new ValidationError('Password must be at least 6 characters long', 'password');
+        }
 
-    async login(req: Request, res: Response): Promise<any> {
+        const user = await authService.register(email, password);
+        res.status(201).json(user);
+    });
+
+    login = asyncHandler(async (req: Request, res: Response): Promise<void> => {
         const { email, password } = req.body
 
         if (!email || !password) {
-            return res.status(400).json({ message: 'Email and password are required' })
+            throw new ValidationError('Email and password are required');
         }
 
         const token = await authService.login(email, password)
 
-        if (token?.access && token?.refresh) {
-            return res.json(token)
-        } else {
-            return res.status(403).json({ message: 'Invalid credentials' })
+        if (!token) {
+            throw new ValidationError('Invalid credentials');
         }
-    }
 
-    refreshToken(req: Request, res: Response): any {
+        res.json(token);
+    });
+
+    refreshToken = asyncHandler(async (req: Request, res: Response): Promise<void> => {
         const { refresh } = req.body
 
         if (!refresh) {
-            return res.status(401).json({ message: 'No refresh token provided' })
+            throw new ValidationError('No refresh token provided');
         }
 
         const token = authService.refreshToken(refresh)
 
-        if (token?.access && token.refresh) {
-            return res.json(token)
-        } else {
-            return res.status(403).json({ message: 'Invalid refresh token' })
+        if (!token) {
+            throw new ValidationError('Invalid refresh token');
         }
-    }
+
+        res.json(token);
+    });
 }
 
 export default new AuthController()
