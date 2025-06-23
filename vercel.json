@@ -7,5 +7,10 @@
         "api/index.ts": {
             "maxDuration": 50
         }
+    },
+    "build": {
+        "env": {
+            "NODE_VERSION": "22" 
+        }
     } 
 }
