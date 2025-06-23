@@ -21,7 +21,10 @@
   },
   "homepage": "https://github.com/DmitrySinyapkin/ai-helper-back#readme",
   "dependencies": {
+    "@adminjs/express": "^6.1.1",
+    "@adminjs/sequelize": "^4.1.1",
     "@supabase/supabase-js": "^2.49.1",
+    "adminjs": "^7.8.16",
     "axios": "^1.8.1",
     "bcryptjs": "^3.0.2",
     "cheerio": "^1.0.0",
@@ -30,7 +33,9 @@
     "express": "^4.21.2",
     "html-minifier": "^4.0.0",
     "jsonwebtoken": "^9.0.2",
-    "openai": "^4.86.1"
+    "openai": "^4.86.1",
+    "pg": "^8.16.2",
+    "sequelize": "^6.37.7"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

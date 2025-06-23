@@ -7,6 +7,7 @@ import authRoutes from './routes/authRoutes.js'
 import chatRoutes from './routes/chatRoutes.js'
 import notesRoutes from './routes/notesRoutes.js'
 import usersRoutes from './routes/usersRoutes.js'
+import { adminJs, router as adminRouter } from './admin/admin.js';
 
 const app = express()
 
@@ -20,6 +21,9 @@ app.use('/api/chat', chatRoutes)
 app.use('/api/notes', [authMiddleware], notesRoutes)
 // @ts-ignore
 app.use('/api/users', [authMiddleware], usersRoutes)
+
+// AdminJS
+app.use(adminJs.options.rootPath, adminRouter)
 
 // Global error handler - must be last
 app.use(errorHandler as ErrorRequestHandler)
