@@ -1,4 +1,4 @@
-import AdminJS from 'adminjs';
+import AdminJS, { ActionRequest } from 'adminjs';
 import AdminJSExpress from '@adminjs/express';
 import * as AdminJSSequelize from '@adminjs/sequelize';
 import sequelize from '../config/sequelize.js';
@@ -21,7 +21,7 @@ const adminJs = new AdminJS({
         },
         actions: {
           new: {
-            before: async (request) => {
+            before: async (request: ActionRequest) => {
               if (request.payload?.password) {
                 request.payload.password = await bcrypt.hash(request.payload.password, 10);
               }
@@ -29,7 +29,7 @@ const adminJs = new AdminJS({
             },
           },
           edit: {
-            before: async (request) => {
+            before: async (request: ActionRequest) => {
               if (request.payload?.password) {
                 request.payload.password = await bcrypt.hash(request.payload.password, 10);
               }
@@ -40,11 +40,10 @@ const adminJs = new AdminJS({
       },
     },
     { resource: Note },
-    { resource: Chat },
+    //{ resource: Chat },
   ],
   branding: {
     companyName: 'AI Helper Admin',
-    softwareBrothers: false,
   },
 });
 
