@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node dist/server.js",
     "build": "tsc",
-    "dev": "npx tsx watch api/index.ts"
+    "dev": "npx tsx watch api/index.ts",
+    "postinstall": "npm rebuild"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "jsonwebtoken": "^9.0.2",
     "openai": "^4.86.1",
     "pg": "^8.16.2",
+    "rollup": "^4.44.0",
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
