@@ -7,8 +7,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "build": "tsc",
-    "dev": "npx tsx watch api/index.ts",
-    "postinstall": "npm rebuild"
+    "dev": "npx tsx watch api/index.ts"
   },
   "repository": {
     "type": "git",
